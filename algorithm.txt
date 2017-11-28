@@ -1,0 +1,431 @@
+basic class:
+1.reverse a string
+function reverseString(str) {
+  var arr=str.split('');
+  arr.reverse();
+  str=arr.join('');
+  return str;
+}
+reverseString("hello");
+
+2.factorialize a number
+function factorialize(num) {
+  var product=1;
+  for(var i=num;i>=1;i--){
+    product*=i;
+  }
+  return product;
+}
+factorialize(5);
+
+3. check for palindromes
+
+
+4. repeat a string
+function repeat(str, num) {
+  var newStr="";
+  if (num<=0){
+    return "";
+  }else {
+    for(var i=1;i<=num;i++){
+      newStr+=str;
+    }
+  }
+  return newStr;
+}
+repeat("abc", 3);
+
+5.Truncate a string
+function truncate(str, num) {
+  var newStr="";
+  if(num>=str.length){
+    return str;
+  }
+  if (num<=3){
+    newStr=str.slice(0,num)+"...";
+  }else{
+    newStr=str.slice(0,num-3)+"...";
+  }
+  return newStr;
+}
+truncate("A-tisket a-tasket A green and yellow basket", 11);
+
+6.chunky monkey
+function chunk(arr, size) {
+  var newArr=[];
+  while(arr.length>size){
+    newArr.push(arr.slice(0,size));
+    arr=arr.slice(size);
+  }
+  newArr.push(arr);
+  return newArr;
+}
+chunk(["a", "b", "c", "d"], 2);
+
+7.slasher flick
+function slasher(arr, howMany) {
+  arr.splice(0,howMany);
+  return arr;
+}
+slasher([1, 2, 3], 2);
+
+8. mutations
+function mutation(arr) {
+  var arr1=[];
+  arr1.push(arr[0].toLowerCase());
+  arr1.push(arr[1].toLowerCase());
+  arr=arr1;
+  var nArr=arr[1].split('');
+  for(var i=0;i<nArr.length;i++){
+    if(arr[0].indexOf(nArr[i])==-1){
+      return false;
+    }
+  }
+  return true;
+}
+mutation(["hello", "hey"]);
+
+9.falsy bouncer
+function bouncer(arr) {
+  arr=arr.filter(function(val){
+    var x=new Boolean(val);
+    return x==true;
+  });
+  return arr;
+}
+bouncer([7, "ate", "", false, 9]);
+
+10.seek and destroy
+function destroyer(arr) {
+  var nArr=[];
+  for (var j=1;j<arguments.length;j++){
+    nArr.push(arguments[j]);
+  }
+  for(var i=0;i<nArr.length;i++){
+    arr=arr.filter(function(val){
+    return val!==nArr[i];
+    });
+  }      
+  return arr;
+}
+destroyer([1, 2, 3, 1, 2, 3], 2, 3);
+
+11.where do I belong
+function where(arr, num) {
+  arr.push(num);
+  arr=arr.sort(function(a,b){
+    return a-b;
+  });
+  for(var i=0;i<arr.length;i++){
+    if(num===arr[i]){
+      return i;
+    }
+  }
+}
+where([40, 60], 50);
+
+12.Caesars Cipher
+function rot13(str) { // LBH QVQ VG!
+  var arr=[];
+  var arr1=[];
+  for(var i=0;i<str.length;i++){
+    if(str.charCodeAt(i)>=65&&str.charCodeAt(i)<=77){
+      arr.push(str.charCodeAt(i)+13);
+    }else if(str.charCodeAt(i)>=78&&str.charCodeAt(i)<=90){
+      arr.push(str.charCodeAt(i)-13);
+    }else{
+      arr.push(str.charCodeAt(i));
+    }
+  }
+  for(var j=0;j<arr.length;j++){
+    arr1.push(String.fromCharCode(arr[j]));
+  } 
+  return arr1.join('');
+}
+rot13("SERR PBQR PNZC");  // 你可以修改这一行来测试你的代码
+
+
+medium class:
+
+1.sum all numbers in a range
+function sumAll(arr) {
+  var a=0;
+  if(arr[0]>arr[1]){
+    a=arr[0];
+    arr[0]=arr[1];
+    arr[1]=a;
+  }
+  var sum=0;
+  for(var i=arr[0];i<=arr[1];i++){
+    sum+=i;
+  }
+  return sum;
+}
+
+sumAll([5, 4]);
+
+2. diff two arrays
+function diff(arr1, arr2) {
+  var newArr = [];
+  // Same, same; but different.
+  var nArr1=arr1;
+  var sArr=[];
+  for(var i=0;i<arr2.length;i++){
+    arr1=arr1.filter(function(val1){
+      return val1!==arr2[i];
+    });
+  }
+  for(var j=0;j<nArr1.length;j++){
+    arr2=arr2.filter(function(val2){
+      return val2!==nArr1[j];
+    });
+  }
+  sArr=arr1.concat(arr2);
+  return sArr;
+}
+diff([1, 2, 3, 5], [1, 2, 3, 4, 5]);
+
+3.roman numberal converter
+function convert(num) {
+  //< referrence table
+  var lookup={
+    0:["","I","II","III","IV","V","VI","VII","VIII","IX"],
+    1:["","X","XX","XXX","XL","L","LX","LXX","LXXX","XC"],
+    2:["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM"],
+    3:["","M","MM","MMM"]
+  };
+  //>
+  //< resolve number into digit form and save in digitArr
+  var left=0;
+  var digit=0;
+  var digitArr=[];
+  for (var i=1;i<=4;i++){
+    left = num % Math.pow(10,i);
+    digit = left / Math.pow(10,i-1);
+    digitArr.push(digit);//sequence is 1, 10 ,100,...
+    num=num-left;
+  }
+  //>
+  //< find corresponding symbol for each digit and push into symbolArr
+  var symbolArr=[];
+  for (var j=3;j>=0;j--){
+    symbolArr.push(lookup[j][digitArr[j]]);
+  }
+  //>
+  //< convert to string
+  var romanSym;
+  romanSym=symbolArr.join('');
+  //>
+ return romanSym;
+}
+// the maximum is 3999, input can not beyond this value 
+convert(3205);
+
+4.where art thou
+function where(collection, source) {
+  var arr = [];
+  //< get all keys of source stored in a array
+  var sourceKeys=[];
+  sourceKeys=Object.keys(source);
+  //>
+  
+  //< traverse collection and judge whether include all key-values
+  for (var i=0;i<collection.length;i++){
+    var count=0;
+    for(var j=0;j<sourceKeys.length;j++){
+      if (collection[i].hasOwnProperty(sourceKeys[j])){
+        if (collection[i][sourceKeys[j]]===source[sourceKeys[j]]){
+          count+=1;
+        }
+      }
+    }
+    if(count===sourceKeys.length){
+      arr.push(collection[i]);
+    }   
+  }
+  //>
+  return arr;
+}
+where([{ "a": 1 }, { "a": 1 }, { "a": 1, "b": 2 }], { "a": 1 });
+
+5. search and replace
+function myReplace(str, before, after) {
+  if (before.toLowerCase()===before){
+    str=str.replace(before,after);
+    return str;
+  }
+  var afterArr=after.split("");
+  afterArr[0]=afterArr[0].toUpperCase();
+  after=afterArr.join("");
+  str=str.replace(before,after);
+  return str; 
+}  
+myReplace("A quick brown fox Jumped over the lazy dog", "Jumped", "leaped");
+
+6.pig latin
+function translate(str) {
+  var strArr=str.split("");
+  switch (strArr[0]) {
+    case "a":
+    case "e":
+    case "i":
+    case "o":
+    case "u":
+      strArr.push("way");
+      str=strArr.join("");
+    break;
+    default:
+      var headArr=[];
+      var i=0;
+      while(strArr[i]!=="a"&&strArr[i]!=="e"&&strArr[i]!=="i"&&strArr[i]           !=="o"&&strArr[i]!=="u"){
+        headArr.push(strArr.shift());
+        
+      }
+      headArr.push("ay");
+      for (i=0;i<headArr.length;i++){
+        strArr.push(headArr[i]);
+      }
+      
+      str=strArr.join("");
+  }  
+  return str;
+}
+translate("cbvcxcvonsonant");
+
+7.DNA pairing
+function pair(str) {
+  var match={
+    "C":"G","G":"C","A":"T","T":"A"
+  };
+  var arr=str.split("");
+  
+  var arrM=[];
+  for (var i=0;i<arr.length;i++){
+    var arrS=[];
+    arrS.push(arr[i]);
+    arrS.push(match[arr[i]]);
+    arrM.push(arrS);
+  }
+  
+  return arrM;
+}
+pair("GCG");
+
+8.missing letters
+function fearNotLetter(str) {
+  for(var i=0;i<str.length-1;i++){
+    if(str.charCodeAt(i+1)-str.charCodeAt(i)!==1){
+      return String.fromCharCode(str.charCodeAt(i)+1);
+    }
+  }
+  return undefined;
+}
+
+fearNotLetter("abce");
+
+9.Boo who
+function boo(bool) {
+  // What is the new fad diet for ghost developers? The Boolean.
+  
+  if(Boolean(bool)===bool){
+    return true;
+  }else{
+    return false;
+}
+  }  
+boo(1);
+
+10.sorted union
+function unite(arr1, arr2, arr3) {
+  var arr=arr1;
+  var arrCon=[];
+  for(var k=0;k<arguments.length;k++){
+    arrCon.push(arguments[k]);
+  }
+
+  for(var i=1;i<arrCon.length;i++){
+    for(var j=0;j<arr.length;j++){
+     arrCon[i]=arrCon[i].filter(function(val){
+     return val!==arr[j];          
+    }); 
+    }
+    if(arrCon[i]!==''){
+      arr=arr.concat(arrCon[i]);
+    }
+    
+    
+  }
+  return arr;
+}
+
+unite([1, 3, 2], [5, 2, 1, 4], [2, 1]);
+
+11. com=nvert HTML entities
+function convert(str) {
+  // &colon;&rpar;
+ str=str.replace(/&/g,"&amp;");
+ str=str.replace(/</g,"&lt;");
+  str=str.replace(/>/g,"&gt;");
+  str=str.replace(/\"/g,"&quot;");
+  str=str.replace(/\'/g,"&apos;");
+  return str;
+}
+
+convert("Dolce & Gabbana");
+
+12. spinal tap case
+
+13. sum all odd fibonacci numbers
+function sumFibs(num) {
+//<construct  Fibonacci array
+var a=1;
+var b=1;
+var c=a+b;
+var arr=[a,b];
+while(c<=num){
+
+  arr.push(c);
+  a=b;
+  b=c;
+  c=a+b;
+}
+//>
+//<filter even number
+arr=arr.filter(function(val){
+  return val%2===1;
+});
+//>
+//< sum
+var sum=arr.reduce(function(val1,val2){
+  return val1+val2;
+});
+//>
+ return sum;
+}
+sumFibs(9);
+
+14.Sum all primes
+function sumPrimes(num) {
+  var arr=[2];
+  for(var i=3;i<=num;i+=2){
+    var flag=true;
+    for(var j=2;j<=Math.floor(i/2);j++){
+      if(i%j===0){
+        flag=false;
+        break;
+      }
+    }
+    if(flag===true){
+      arr.push(i);
+    }
+  }
+  var sum=arr.reduce(function(val1,val2){
+    return val1+val2;
+  });
+  return sum;
+}
+
+sumPrimes(16);
+
+15.smallest common multiple
+
