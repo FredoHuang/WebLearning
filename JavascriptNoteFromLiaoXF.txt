@@ -1,13 +1,13 @@
 廖雪峰Javascript教程学习笔记
-一、快速入门
+1、快速入门
 Javascript代码可以直接嵌在任何地方，通常放在代码<head>中；还可以将代码放到单独的.js文件，通过<script src="..."></script>引用，放入单独的.js文件更利于维护，不同页面可引用同一份.js文件 
-1. 基本语法
+1.1. 基本语法
 以//开头直到行末的字符为注释；另一种多行字符注释/* ... */
-2. 数据类型和变量
+1.2. 数据类型和变量
 六大数据类型：
 数字（不区分整数和浮点数，NaN也是数字类型，不等于任何数字包括自身）；	字符串；	布尔值；	null（表示一个空值）；	undefined（值未定义）；	对象（数组也是对象）
 定义变量时可以不指定数据类型，这是动态语言的特性;JS不强迫必须用var定义变量，如果不用var则该变量为全局变量，可以用delete删除，通过在代码顶部输入‘use strict’ 可以强制要var定义
-3. 字符串
+1.3. 字符串
 字符串是基本数据类型，其值不能改变，'或"要成为字符输出的一部分需要在前面加转义符\,转义符还可以转移其他，如\n 换行 \t 制表符 \x## 与之十六进制对应的ASCII字符 \u####unicode字符
 ES6使用`进行多行字符表示：
 `这是一个
@@ -15,7 +15,7 @@ ES6使用`进行多行字符表示：
 字符串`
 字符串操作：
 String.length 求字符串长度；	String.toUpperCase()大写；	String.toLowerCase()小写；	String.indexOf()搜索某字符串出现的位置，没找到返回-1；	String.substring(0,5)返回指定区间的字串，不包括结束位置
-4. 数组
+1.4. 数组
 数组可以改变，通过索引赋值索引超过了范围会引起数组大小的变化。
 数组操作：
 arr.indexOf()搜索特定元素的位置
@@ -27,11 +27,11 @@ arr.reverse() 给数组元素反转，直接改变数组
 arr.splice(n,n,'element1',...,'element2') 从索引位置删除若干元素，再在该位置添加元素，第一个数字表示索引位置，第二个表示删除个数,直接改变数组
 arr.concat() 连接另一个数组合并成一个，不改变原来的数组，返回新的
 arr.join() 将数组元素按指定连接符连接成字符串
-5. 对象
+1.5. 对象
 对象属性名如果不是有效变量则需要''括起来，访问也必须用[]操作符；要检测某对象Object拥有某属性可以用in操作符：'name' in xiaoming 返回布尔值，但该属性有可能是继承的不是自带的，要检测是不是自带的用Object.hasOwnProperty()
-6. 循环
+1.6. 循环
 for ... in 循环是for循环的变体，for(var key in Object){} 中key表示的是对象Object的属性变量名
-7. Map和Set
+1.7. Map和Set
 JS的对象属性名必须是字符串，为了增加其他的数据类型，ES6引入了新的数据类型Map，Map是一组键值对的结构。初始化一个Map需要一个二维数组，方法如下：
 var m = new Map([['A',32],['B',42],['C',41]]);
 也可以初始化一个空的Map，通过命令来添加键值对，同一个键只能有一个值，不断对同一个键赋值，后面的会将前面的覆盖
@@ -40,7 +40,7 @@ m.set('A',21);
 Set是一组键的集合，不储存值，键不能重复
 var s1 = new Set([1,2,3]);
 s1.add(5); s1.delete(3);
-8. iterable
+1.8. iterable
 类似数组的下标循环，但数组下标循环不能遍历Map和Set，为此引入了iterable类型，数组，Map，Set都属于iterable类型，这种类型可以通过for ... of 循环遍历，for（var value of iterable）中value表示值与for in不同
 更好的方式是使用iterable的forEach（）方法：
 a.forEach(function (element, index, array) {
@@ -49,10 +49,10 @@ a.forEach(function (element, index, array) {
     // array: 指向Array对象本身
 });
 
-二、函数
+2、函数
 函数如果没有return则返回undefined，调用函数时传入的参数比定义的多也不影响调用，传入的比定义的少则返回NaN；函数中有个关键字arguments，包含所有传入的参数，类似数组但不是数组；剩余参数rest，
 function name（a,b, ...rest){} rest包含所有a，b以后的所有参数，如果参数没有传到rest则rest为空数组，而不是undefined。
-1. 变量作用域和解构赋值
+2.1. 变量作用域和解构赋值
 JS具有变量申明提前的特性，但赋值不会提前；为了防止全局变量名的冲突，建议将所有全局变量和函数都放到一个对象中；用var定义的变量只有函数作用，要是变量有块级作用域用let申明变量；JS没有常量申明，默认变量名全部大写来标明常量
 对多个变量进行同时赋值使用解构赋值：var [x,y,z] = ['A','B','C'];对对象进行解构赋值，多个变量要用{}括起来：
 var person = {
@@ -84,7 +84,7 @@ var x, y;
 // 语法错误: Uncaught SyntaxError: Unexpected token =
 这是因为JavaScript引擎把{开头的语句当作了块处理，于是=不再合法。解决方法是用小括号括起来：
 ({x, y} = { name: '小明', x: 100, y: 200});
-2. 方法 
+2.2. 方法 
 对象中绑定的函数称为该对象的方法
 var xiaoming = {
     name: '小明',
@@ -158,11 +158,11 @@ getAge.apply(xiaoming, []); // 25, this指向xiaoming, 参数为空
 Math.max.apply(null, [3, 5, 4]); // 5
 Math.max.call(null, 3, 5, 4); // 5
 对于普通函数，将this绑定为null
-3. 高阶函数
+2.3. 高阶函数
 参数接受另一个函数的函数称之为高阶函数
-4. 闭包
+2.4. 闭包
 一个函数的返回值是另一个函数称之为闭包，借助闭包可以封装私有变量
-5.箭头函数
+2.5.箭头函数
 ES6新增了一种箭头函数，其格式如下：
 (x,y)=> {
 	return x*y;
@@ -230,7 +230,7 @@ catch (err) {
     handle(err);
 }
 
-三、 标准对象
+3. 标准对象
 JS里一切都视为对象（广义），可以通过typeof操作符获取对象类型，它总是返回一个字符串，如：typeof null; // 'object'
 包装对象，用new创建number、boolean、string的包装对象：
 var n = new Number(123);  //123
@@ -241,7 +241,7 @@ var s = new String('str');  //'str'
 用String()来转换任意类型为string，或调用某个对象（广义）的toString()方法（null虽然是对象，但没有toString方法；
 判断是不是数组：Array.isArray(arr);		
 数字直接使用tostring方法如123.tostring()会报错，需要改为123..toString() 或 (123).toString();原因可能是123.被当成了浮点数
-1. Date
+3.1. Date
 Date对象用来表示日期和时间，获取系统当前时间如下；
 var now = new Date();
 now.getFullYear();年份
@@ -264,7 +264,7 @@ Date对象表示浏览器所在时区时间，也可以显示调整后的UTC时�
 var d = new Date(1435146562875);
 d.toLocaleString(); // '2015/6/24 下午7:49:22'，本地时间（北京时区+8:00），显示的字符串与操作系统设定的格式有关
 d.toUTCString(); // 'Wed, 24 Jun 2015 11:49:22 GMT'，UTC时间，与本地时间相差8小时
-2. RegExp正则表达式
+3.2. RegExp正则表达式
 \d 匹配数字； \w 匹配数字或字母； . 匹配任意一个字符； * 匹配零个或多个任意字符； + 匹配至少一个字符； ？ 匹配零个或一个字符； {n} 表示n个字符，{n,m}n-m个字符
 []表示范围，[0-9a-zA-Z]匹配一个数字或者一个字母； A|B 匹配A或者B； ^\d以数字开头；  $\d以数字结尾；  /.../i 忽略大小写  /.../m 执行多行匹配
 创建正则表达式有两种方法：直接通过/正则表达式/; new RegExp('正则表达式’)
@@ -290,7 +290,7 @@ var r1 = /test/g;
 // 等价于:
 var r2 = new RegExp('test', 'g');
 全局匹配会与/^...$/冲突，这样只会匹配一次
-3.JSON
+3.3.JSON
 JSON是一种用于数据交换的格式，它可以是任何数据类型以及它们的任意组合。JSON的字符集必须是UTF-8.
 将一个对象序列化为JSON格式的字符串
 var xiaoming = {
@@ -367,7 +367,7 @@ var obj = JSON.parse('{"name":"小明","age":14}', function (key, value) {
 });
 console.log(JSON.stringify(obj)); // {name: '小明同学', age: 14}
 
-四、面向对象编程
+4. 面向对象编程
 JS中没有类和实例的概念，每个对象都是实例，JS是通过原型继承来实现面向对象编程的。
 var Student = {
     name: 'Robot',
@@ -402,7 +402,7 @@ function createStudent(name) {
 var xiaoming = createStudent('小明');
 xiaoming.run(); // 小明 is running...
 xiaoming.__proto__ === Student; // true
-1. 创建对象
+4.1. 创建对象
 当访问一个对象的属性时，引擎先查找当前对象的属性，没有，查找其原型的对象上找，没有，到Object.prototype对象上找，没有，返回undefined
 数组的原型链：arr ---> Array.prototype ---> Object.prototype ---> null 
 函数原型链： functionName ---> Function.prototype ---> Object.prototype ---> null
@@ -447,5 +447,1621 @@ function createStudent(props) {
     return new Student(props || {})
 }
 这个createstudent()函数不需要new来调用；参数灵活，可以传，也可以不传
-2. 原型继承
 
+4.2 原型继承
+在传统的基于Class的语言如Java、C++中，继承的本质是扩展一个已有的Class，并生成新的Subclass。
+
+由于这类语言严格区分类和实例，继承实际上是类型的扩展。但是，JavaScript由于采用原型继承，我们无法直接扩展一个Class，因为根本不存在Class这种类型。
+
+但是办法还是有的。我们先回顾Student构造函数：
+function Student(props) {
+    this.name = props.name || 'Unnamed';
+}
+
+Student.prototype.hello = function () {
+    alert('Hello, ' + this.name + '!');
+}
+现在，我们要基于Student扩展出PrimaryStudent，可以先定义出PrimaryStudent：
+function PrimaryStudent(props) {
+    // 调用Student构造函数，绑定this变量:
+    Student.call(this, props);
+    this.grade = props.grade || 1;
+}
+但是，调用了Student构造函数不等于继承了Student，PrimaryStudent创建的对象的原型是：
+new PrimaryStudent() ----> PrimaryStudent.prototype ----> Object.prototype ----> null
+必须想办法把原型链修改为：
+new PrimaryStudent() ----> PrimaryStudent.prototype ----> Student.prototype ----> Object.prototype ----> null
+我们必须借助一个中间对象来实现正确的原型链，这个中间对象的原型要指向Student.prototype。为了实现这一点，参考道爷（就是发明JSON的那个道格拉斯）的代码，中间对象可以用一个空函数F来实现：
+// PrimaryStudent构造函数:
+function PrimaryStudent(props) {
+    Student.call(this, props);
+    this.grade = props.grade || 1;
+}
+
+// 空函数F:
+function F() {
+}
+
+// 把F的原型指向Student.prototype:
+F.prototype = Student.prototype;
+
+// 把PrimaryStudent的原型指向一个新的F对象，F对象的原型正好指向Student.prototype:
+PrimaryStudent.prototype = new F();
+
+// 把PrimaryStudent原型的构造函数修复为PrimaryStudent:
+PrimaryStudent.prototype.constructor = PrimaryStudent;
+
+// 继续在PrimaryStudent原型（就是new F()对象）上定义方法：
+PrimaryStudent.prototype.getGrade = function () {
+    return this.grade;
+};
+
+// 创建xiaoming:
+var xiaoming = new PrimaryStudent({
+    name: '小明',
+    grade: 2
+});
+xiaoming.name; // '小明'
+xiaoming.grade; // 2
+
+// 验证原型:
+xiaoming.__proto__ === PrimaryStudent.prototype; // true
+xiaoming.__proto__.__proto__ === Student.prototype; // true
+
+// 验证继承关系:
+xiaoming instanceof PrimaryStudent; // true
+xiaoming instanceof Student; // true
+注意，函数F仅用于桥接，我们仅创建了一个new F()实例，而且，没有改变原有的Student定义的原型链。
+
+如果把继承这个动作用一个inherits()函数封装起来，还可以隐藏F的定义，并简化代码：
+function inherits(Child, Parent) {
+    var F = function () {};
+    F.prototype = Parent.prototype;
+    Child.prototype = new F();
+    Child.prototype.constructor = Child;
+}
+这个inherits()函数可以复用：
+function Student(props) {
+    this.name = props.name || 'Unnamed';
+}
+
+Student.prototype.hello = function () {
+    alert('Hello, ' + this.name + '!');
+}
+
+function PrimaryStudent(props) {
+    Student.call(this, props);
+    this.grade = props.grade || 1;
+}
+
+// 实现原型继承链:
+inherits(PrimaryStudent, Student);
+
+// 绑定其他方法到PrimaryStudent原型:
+PrimaryStudent.prototype.getGrade = function () {
+    return this.grade;
+};
+JavaScript的原型继承实现方式就是：
+
+定义新的构造函数，并在内部用call()调用希望“继承”的构造函数，并绑定this；
+
+借助中间函数F实现原型链继承，最好通过封装的inherits函数完成；
+
+继续在新的构造函数的原型上定义新方法。
+
+4.3 class继承
+在上面的章节中我们看到了JavaScript的对象模型是基于原型实现的，特点是简单，缺点是理解起来比传统的类－实例模型要困难，最大的缺点是继承的实现需要编写大量代码，并且需要正确实现原型链。
+
+有没有更简单的写法？有！
+
+新的关键字class从ES6开始正式被引入到JavaScript中。class的目的就是让定义类更简单。
+
+我们先回顾用函数实现Student的方法：
+function Student(name) {
+    this.name = name;
+}
+
+Student.prototype.hello = function () {
+    alert('Hello, ' + this.name + '!');
+}
+如果用新的class关键字来编写Student，可以这样写
+class Student {
+    constructor(name) {
+        this.name = name;
+    }
+
+    hello() {
+        alert('Hello, ' + this.name + '!');
+    }
+}
+比较一下就可以发现，class的定义包含了构造函数constructor和定义在原型对象上的函数hello()（注意没有function关键字），这样就避免了Student.prototype.hello = function () {...}这样分散的代码。
+
+最后，创建一个Student对象代码和前面章节完全一样：
+var xiaoming = new Student('小明');
+xiaoming.hello();
+class继承
+
+用class定义对象的另一个巨大的好处是继承更方便了。想一想我们从Student派生一个PrimaryStudent需要编写的代码量。现在，原型继承的中间对象，原型对象的构造函数等等都不需要考虑了，直接通过extends来实现：
+class PrimaryStudent extends Student {
+    constructor(name, grade) {
+        super(name); // 记得用super调用父类的构造方法!
+        this.grade = grade;
+    }
+
+    myGrade() {
+        alert('I am at grade ' + this.grade);
+    }
+}
+class继承
+
+阅读: 50905
+在上面的章节中我们看到了JavaScript的对象模型是基于原型实现的，特点是简单，缺点是理解起来比传统的类－实例模型要困难，最大的缺点是继承的实现需要编写大量代码，并且需要正确实现原型链。
+
+有没有更简单的写法？有！
+
+新的关键字class从ES6开始正式被引入到JavaScript中。class的目的就是让定义类更简单。
+
+我们先回顾用函数实现Student的方法：
+
+function Student(name) {
+    this.name = name;
+}
+
+Student.prototype.hello = function () {
+    alert('Hello, ' + this.name + '!');
+}
+如果用新的class关键字来编写Student，可以这样写：
+
+class Student {
+    constructor(name) {
+        this.name = name;
+    }
+
+    hello() {
+        alert('Hello, ' + this.name + '!');
+    }
+}
+比较一下就可以发现，class的定义包含了构造函数constructor和定义在原型对象上的函数hello()（注意没有function关键字），这样就避免了Student.prototype.hello = function () {...}这样分散的代码。
+
+最后，创建一个Student对象代码和前面章节完全一样：
+
+var xiaoming = new Student('小明');
+xiaoming.hello();
+class继承
+
+用class定义对象的另一个巨大的好处是继承更方便了。想一想我们从Student派生一个PrimaryStudent需要编写的代码量。现在，原型继承的中间对象，原型对象的构造函数等等都不需要考虑了，直接通过extends来实现：
+
+class PrimaryStudent extends Student {
+    constructor(name, grade) {
+        super(name); // 记得用super调用父类的构造方法!
+        this.grade = grade;
+    }
+
+    myGrade() {
+        alert('I am at grade ' + this.grade);
+    }
+}
+注意PrimaryStudent的定义也是class关键字实现的，而extends则表示原型链对象来自Student。子类的构造函数可能会与父类不太相同，例如，PrimaryStudent需要name和grade两个参数，并且需要通过super(name)来调用父类的构造函数，否则父类的name属性无法正常初始化。
+
+PrimaryStudent已经自动获得了父类Student的hello方法，我们又在子类中定义了新的myGrade方法。
+
+ES6引入的class和原有的JavaScript原型继承有什么区别呢？实际上它们没有任何区别，class的作用就是让JavaScript引擎去实现原来需要我们自己编写的原型链代码。简而言之，用class的好处就是极大地简化了原型链代码。
+
+你一定会问，class这么好用，能不能现在就用上？
+
+现在用还早了点，因为不是所有的主流浏览器都支持ES6的class。如果一定要现在就用上，就需要一个工具把class代码转换为传统的prototype代码，可以试试Babel这
+
+
+5. 浏览器
+5.1 浏览器对象
+JavaScript可以获取浏览器提供的很多对象，并进行操作
+window对象
+window对象不但充当全局作用域，而且表示浏览器窗口。
+
+window对象有innerWidth和innerHeight属性，可以获取浏览器窗口的内部宽度和高度。内部宽高是指除去菜单栏、工具栏、边框等占位元素后，用于显示网页的净宽高。
+
+兼容性：IE<=8不支持。
+// 可以调整浏览器窗口大小试试:
+console.log('window inner size: ' + window.innerWidth + ' x ' + window.innerHeight);
+对应的，还有一个outerWidth和outerHeight属性，可以获取浏览器窗口的整个宽高。
+navigator对象
+navigator对象表示浏览器的信息，最常用的属性包括：
+
+navigator.appName：浏览器名称；
+navigator.appVersion：浏览器版本；
+navigator.language：浏览器设置的语言；
+navigator.platform：操作系统类型；
+navigator.userAgent：浏览器设定的User-Agent字符串。
+请注意，navigator的信息可以很容易地被用户修改，所以JavaScript读取的值不一定是正确的。很多初学者为了针对不同浏览器编写不同的代码，喜欢用if判断浏览器版本，例如：
+var width;
+if (getIEVersion(navigator.userAgent) < 9) {
+    width = document.body.clientWidth;
+} else {
+    width = window.innerWidth;
+}
+但这样既可能判断不准确，也很难维护代码。正确的方法是充分利用JavaScript对不存在属性返回undefined的特性，直接用短路运算符||计算：
+var width = window.innerWidth || document.body.clientWidth;
+screen
+
+screen对象表示屏幕的信息，常用的属性有：
+
+screen.width：屏幕宽度，以像素为单位；
+screen.height：屏幕高度，以像素为单位；
+screen.colorDepth：返回颜色位数，如8、16、24。
+location对象
+location对象表示当前页面的URL信息。例如，一个完整的URL：
+http://www.example.com:8080/path/index.html?a=1&b=2#TOP
+可以用location.href获取。要获得URL各个部分的值，可以这么写：
+location.protocol; // 'http'
+location.host; // 'www.example.com'
+location.port; // '8080'
+location.pathname; // '/path/index.html'
+location.search; // '?a=1&b=2'
+location.hash; // 'TOP'
+要加载一个新页面，可以调用location.assign()。如果要重新加载当前页面，调用location.reload()方法非常方便。
+if (confirm('重新加载当前页' + location.href + '?')) {
+    location.reload();
+} else {
+    location.assign('/'); // 设置一个新的URL地址
+}
+document
+
+document对象表示当前页面。由于HTML在浏览器中以DOM形式表示为树形结构，document对象就是整个DOM树的根节点。
+
+document的title属性是从HTML文档中的<title>xxx</title>读取的，但是可以动态改变：
+请观察浏览器窗口标题的变化。
+
+要查找DOM树的某个节点，需要从document对象开始查找。最常用的查找是根据ID和Tag Name。
+
+我们先准备HTML数据：
+<dl id="drink-menu" style="border:solid 1px #ccc;padding:6px;">
+    <dt>摩卡</dt>
+    <dd>热摩卡咖啡</dd>
+    <dt>酸奶</dt>
+    <dd>北京老酸奶</dd>
+    <dt>果汁</dt>
+    <dd>鲜榨苹果汁</dd>
+</dl>
+用document对象提供的getElementById()和getElementsByTagName()可以按ID获得一个DOM节点和按Tag名称获得一组DOM节点：
+var menu = document.getElementById('drink-menu');
+var drinks = document.getElementsByTagName('dt');
+var i, s, menu, drinks;
+
+menu = document.getElementById('drink-menu');
+menu.tagName; // 'DL'
+
+drinks = document.getElementsByTagName('dt');
+s = '提供的饮料有:';
+for (i=0; i<drinks.length; i++) {
+    s = s + drinks[i].innerHTML + ',';
+}
+console.log(s);
+
+document对象还有一个cookie属性，可以获取当前页面的Cookie。
+
+Cookie是由服务器发送的key-value标示符。因为HTTP协议是无状态的，但是服务器要区分到底是哪个用户发过来的请求，就可以用Cookie来区分。当一个用户成功登录后，服务器发送一个Cookie给浏览器，例如user=ABC123XYZ(加密的字符串)...，此后，浏览器访问该网站时，会在请求头附上这个Cookie，服务器根据Cookie即可区分出用户。
+
+Cookie还可以存储网站的一些设置，例如，页面显示的语言等等。
+
+JavaScript可以通过document.cookie读取到当前页面的Cookie：
+由于JavaScript能读取到页面的Cookie，而用户的登录信息通常也存在Cookie中，这就造成了巨大的安全隐患，这是因为在HTML页面中引入第三方的JavaScript代码是允许的：
+<html>
+    <head>
+        <script src="http://www.foo.com/jquery.js"></script>
+    </head>
+    ...
+</html>
+如果引入的第三方的JavaScript中存在恶意代码，则www.foo.com网站将直接获取到www.example.com网站的用户登录信息。
+
+为了解决这个问题，服务器在设置Cookie时可以使用httpOnly，设定了httpOnly的Cookie将不能被JavaScript读取。这个行为由浏览器实现，主流浏览器均支持httpOnly选项，IE从IE6 SP1开始支持。
+
+为了确保安全，服务器端在设置Cookie时，应该始终坚持使用httpOnly。
+history
+
+history对象保存了浏览器的历史记录，JavaScript可以调用history对象的back()或forward ()，相当于用户点击了浏览器的“后退”或“前进”按钮。
+
+这个对象属于历史遗留对象，对于现代Web页面来说，由于大量使用AJAX和页面交互，简单粗暴地调用history.back()可能会让用户感到非常愤怒。
+
+新手开始设计Web页面时喜欢在登录页登录成功时调用history.back()，试图回到登录前的页面。这是一种错误的方法。
+
+任何情况，你都不应该使用history这个对象了。
+
+5.2 操作DOM
+取得DOM节点的方法：document.getElementById('IdName'), document.getElementByTagName()以及CSS选择器
+ducument.getElementByClassName(). ID是唯一的，可以直接定位唯一的DOM节点。获取test节点的子节点：
+test.firstElementChild .
+第二种方法是使用querySelector()和querySelectorAll()
+// 通过querySelector获取ID为q1的节点：
+var q1 = document.querySelector('#q1');
+// 通过querySelectorAll获取q1节点内的符合条件的所有节点：
+var ps = q1.querySelectorAll('div.highlighted > p');
+严格地讲，我们这里的DOM节点是指Element，但是DOM节点实际上是Node，在HTML中，Node包括Element、Comment
+、CDATA_SECTION等很多种，以及根节点Document类型，但是，绝大多数时候我们只关心Element，也就是实际控
+制页面结构的Node，其他类型的Node忽略即可。根节点Document已经自动绑定为全局变量document。
+
+a.更新DOM
+修改innerHTML属性，不但可以修改一个DOM节点的文本内容，还可以直接通过HTML片段修改DOM节点内部的子树：
+/ 获取<p id="p-id">...</p>
+var p = document.getElementById('p-id');
+// 设置文本为abc:
+p.innerHTML = 'ABC'; // <p id="p-id">ABC</p>
+// 设置HTML:
+p.innerHTML = 'ABC <span style="color:red">RED</span> XYZ';
+// <p>...</p>的内部结构已修改
+用innerHTML时要注意，是否需要写入HTML。如果写入的字符串是通过网络拿到了，要注意对字符编码来避免XSS攻击。
+第二种是修改innerText或textContent属性，这样可以自动对字符串进行HTML编码，保证无法设置HTML标签
+// 获取<p id="p-id">...</p>
+var p = document.getElementById('p-id');
+// 设置文本:
+p.innerText = '<script>alert("Hi")</script>';
+// HTML被自动编码，无法设置一个<script>节点:
+// <p id="p-id">&lt;script&gt;alert("Hi")&lt;/script&gt;</p>
+使用textContent的不同在于他会返回所有文本，而innerText不返回隐藏文本
+修改CSS也是经常需要的操作。DOM节点的style属性对应所有的CSS，可以直接获取或设置。因为CSS允许font-size
+这样的名称，但它并非JavaScript有效的属性名，所以需要在JavaScript中改写为驼峰式命名fontSize：
+// 获取<p id="p-id">...</p>
+var p = document.getElementById('p-id');
+// 设置CSS:
+p.style.color = '#ff0000';
+p.style.fontSize = '20px';
+p.style.paddingTop = '2em';
+
+b.插入DOM
+使用appendChild把一个子节点添加到父节点的最后一个子节点
+<p id="js">JavaScript</p>
+<div id="list">
+    <p id="java">Java</p>
+    <p id="python">Python</p>
+    <p id="scheme">Scheme</p>
+</div>
+var
+    js = document.getElementById('js'),
+    list = document.getElementById('list');
+list.appendChild(js);
+更多的时候我们会从零创建一个新的节点，然后插入到指定位置：
+var
+    list = document.getElementById('list'),
+    haskell = document.createElement('p');
+haskell.id = 'haskell';
+haskell.innerText = 'Haskell';
+list.appendChild(haskell);
+如果我们要把子节点插入到指定的位置怎么办？可以使用parentElement.insertBefore(newElement,
+referenceElement);，子节点会插入到referenceElement之前。还是以上面的HTML为例，假定我们要
+把Haskell插入到Python之前：
+<div id="list">
+    <p id="java">Java</p>
+    <p id="python">Python</p>
+    <p id="scheme">Scheme</p>
+</div>
+var
+    list = document.getElementById('list'),
+    ref = document.getElementById('python'),
+    haskell = document.createElement('p');
+haskell.id = 'haskell';
+haskell.innerText = 'Haskell';
+list.insertBefore(haskell, ref);
+可见，使用insertBefore重点是要拿到一个“参考子节点”的引用。很多时候，需要循环一个父节点的所有
+子节点，可以通过迭代children属性实现：
+var
+    i, c,
+    list = document.getElementById('list');
+for (i = 0; i < list.children.length; i++) {
+    c = list.children[i]; // 拿到第i个子节点
+}
+
+c.删除DOM
+要删除一个节点，首先要获得该节点本身和父节点，然后调用父节点的removeChild删除
+// 拿到待删除节点:
+var self = document.getElementById('to-be-removed');
+// 拿到父节点:
+var parent = self.parentElement;
+// 删除:
+var removed = parent.removeChild(self);
+removed === self; // true
+节点的children属性时刻都在变化
+
+5.3 操作表单
+HTML表单的输入控件主要有以下几种：
+文本框，<input type="text">
+口令框，<input type="password">
+单选框，<input type="radio">
+复选框，<input type="checkbox">
+下拉框，<select>
+隐藏文本，<input type="hidden">,用户不可见，但表单提交会把隐藏文本发送到服务器
+调用value可以获得用户输入值
+// <input type="text" id="email">
+var input = document.getElementById('email');
+input.value; // '用户输入的值'
+但对于单选框和复选框，value属性返回的永远是预设的值，判断是否勾上了选项，用checked判断：
+// <label><input type="radio" name="weekday" id="monday" value="1"> Monday</label>
+// <label><input type="radio" name="weekday" id="tuesday" value="2"> Tuesday</label>
+var mon = document.getElementById('monday');
+var tue = document.getElementById('tuesday');
+mon.value; // '1'
+tue.value; // '2'
+mon.checked; // true或者false
+tue.checked; // true或者false
+HTML5控件包括date、datetime、datetime-local、color
+Javascript可以以两种方式来处理表单的提交
+方式一通过<form>元素的submit()方法提交：
+<form id="test-form">
+    <input type="text" name="test">
+    <button type="button" onclick="doSubmitForm()">Submit</button>
+</form>
+
+<script>
+function doSubmitForm() {
+    var form = document.getElementById('test-form');
+    // 可以在此修改form的input...
+    // 提交form:
+    form.submit();
+}
+</script>
+这种方式的缺点是扰乱了浏览器对form的正常提交。浏览器默认点击<button type="submit">时提交表单，
+或者用户在最后一个输入框按回车键。因此，第二种方式是响应<form>本身的onsubmit事件，在提交form
+时作修改：
+<form id="test-form" onsubmit="return checkForm()">
+    <input type="text" name="test">
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+function checkForm() {
+    var form = document.getElementById('test-form');
+    // 可以在此修改form的input...
+    // 继续下一步:
+    return true;
+}
+</script>
+很多登录表单希望用户输入用户名和口令，但是，安全考虑，提交表单时不传输明文口令，而是口令的MD5。
+普通JavaScript开发人员会直接修改<input>：
+<form id="login-form" method="post" onsubmit="return checkForm()">
+    <input type="text" id="username" name="username">
+    <input type="password" id="password" name="password">
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+function checkForm() {
+    var pwd = document.getElementById('password');
+    // 把用户输入的明文变为MD5:
+    pwd.value = toMD5(pwd.value);
+    // 继续下一步:
+    return true;
+}
+</script>
+这个做法看上去没啥问题，但用户输入了口令提交时，口令框的显示会突然从几个*变成32个*（因为MD5有32个字符）。
+要想不改变用户的输入，可以利用<input type="hidden">实现：
+<form id="login-form" method="post" onsubmit="return checkForm()">
+    <input type="text" id="username" name="username">
+    <input type="password" id="input-password">
+    <input type="hidden" id="md5-password" name="password">
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+function checkForm() {
+    var input_pwd = document.getElementById('input-password');
+    var md5_pwd = document.getElementById('md5-password');
+    // 把用户输入的明文变为MD5:
+    md5_pwd.value = toMD5(input_pwd.value);
+    // 继续下一步:
+    return true;
+}
+</script>
+
+5.4 操作文件
+上传文件的控件<input type="file">,当一个表单包含<input type="file">时，表单的enctype必须指定
+为multipart/form-data，method必须指定为post，浏览器才能正确编码并以multipart/form-data格式发
+送表单的数据。出于安全考虑，浏览器只允许用户点击<input type="file">来选择本地文件，用JavaScript
+对<input type="file">的value赋值是没有任何效果的。当用户选择了上传某个文件后，JavaScript也无
+法获得该文件的真实路径：
+对文件扩展名做检查，以防无效格式文件：
+var f = document.getElementById('test-file-upload');
+var filename = f.value; // 'C:\fakepath\test.png'
+if (!filename || !(filename.endsWith('.jpg') || filename.endsWith('.png') || filename.endsWith('.gif'))) {
+    alert('Can only upload image file.');
+    return false;
+}
+由于JavaScript对用户上传的文件操作非常有限，尤其是无法读取文件内容，使得很多需要操作文件的网页不得不用
+Flash这样的第三方插件来实现。随着HTML5的普及，新增的File API允许JavaScript读取文件内容，获得
+更多的文件信息。HTML5的File API提供了File和FileReader两个主要对象，可以获得文件信息并读取文件。
+下面的例子演示了如何读取用户选取的图片文件，并在一个<div>中预览图像：
+var
+    fileInput = document.getElementById('test-image-file'),
+    info = document.getElementById('test-file-info'),
+    preview = document.getElementById('test-image-preview');
+// 监听change事件:
+fileInput.addEventListener('change', function () {
+    // 清除背景图片:
+    preview.style.backgroundImage = '';
+    // 检查文件是否选择:
+    if (!fileInput.value) {
+        info.innerHTML = '没有选择文件';
+        return;
+    }
+    // 获取File引用:
+    var file = fileInput.files[0];
+    // 获取File信息:
+    info.innerHTML = '文件: ' + file.name + '<br>' +
+                     '大小: ' + file.size + '<br>' +
+                     '修改: ' + file.lastModifiedDate;
+    if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif') {
+        alert('不是有效的图片文件!');
+        return;
+    }
+    // 读取文件:
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        var
+            data = e.target.result; // 'data:image/jpeg;base64,/9j/4AAQSk...(base64编码)...'            
+        preview.style.backgroundImage = 'url(' + data + ')';
+    };
+    // 以DataURL的形式读取文件:
+    reader.readAsDataURL(file);
+});
+上面的代码演示了如何通过HTML5的File API读取文件内容。以DataURL的形式读取到的文件是一个字符串，类似
+于data:image/jpeg;base64,/9j/4AAQSk...(base64编码)...，常用于设置图像。如果需要服务器端处理，
+把字符串base64,后面的字符发送给服务器并用Base64解码就可以得到原始文件的二进制内容。
+Javascript的一个重要特性是单线程执行模式，任何时候Javascript代码都不可能有多于一个线程在执行，
+Javascript执行多任务实际都是异步调用，比如下面的代码：
+reader.readAsDataURL(file);
+就会发起一个异步操作来读取文件内容。因为是异步操作，所以我们在JavaScript代码中就不知道什么时候操作结束，
+因此需要先设置一个回调函数：
+reader.onload = function(e) {
+    // 当文件读取完成后，自动调用此函数:
+};
+当文件读取完成后，JavaScript引擎将自动调用我们设置的回调函数。执行回调函数时，文件已经读取完毕，
+所以我们可以在回调函数内部安全地获得文件内容。
+
+5.5 AJAX
+AJAX就是用Javascript执行异步网络请求。
+使用XMLHttpRequest对象写AJAX：
+function success(text) {
+    var textarea = document.getElementById('test-response-text');
+    textarea.value = text;
+}
+
+function fail(code) {
+    var textarea = document.getElementById('test-response-text');
+    textarea.value = 'Error code: ' + code;
+}
+
+var request = new XMLHttpRequest(); // 新建XMLHttpRequest对象
+
+request.onreadystatechange = function () { // 状态发生变化时，函数被回调
+    if (request.readyState === 4) { // 成功完成
+        // 判断响应结果:
+        if (request.status === 200) {
+            // 成功，通过responseText拿到响应的文本:
+            return success(request.responseText);
+        } else {
+            // 失败，根据响应码判断失败原因:
+            return fail(request.status);
+        }
+    } else {
+        // HTTP请求还在继续...
+    }
+}
+
+// 发送请求:
+request.open('GET', '/api/categories');
+request.send();
+alert('请求已发送，请等待响应...');
+对于低版本的IE需要换一个ActiveXObject对象
+var request = new ActiveXObject('Microsoft.XMLHTTP'); // 新建Microsoft.XMLHTTP对象
+如果混合标准写法和IE写法可以这样：
+var request;
+if (window.XMLHttpRequest) {
+    request = new XMLHttpRequest();
+} else {
+    request = new ActiveXObject('Microsoft.XMLHTTP');
+}
+注意，不要根据浏览器的navigator.userAgent来检测浏览器是否支持某个JavaScript特性，一是因为这个字符
+串本身可以伪造，二是通过IE版本判断JavaScript特性将非常复杂。
+当创建了XMLHttpRequest对象后，要先设置onreadystatechange的回调函数。在回调函数中，通常我们只
+需通过readyState === 4判断请求是否完成，如果已完成，再根据status === 200判断是否是一个成功的响应。
+XMLHttpRequest对象的open()方法有3个参数，第一个参数指定是GET还是POST，第二个参数指定URL地址，
+第三个参数指定是否使用异步，默认是true，所以不用写。最后调用send()方法才真正发送请求。GET请求
+不需要参数，POST请求需要把body部分以字符串或者FormData对象传进去。
+安全限制：
+上面代码的URL使用的是相对路径。如果你把它改为'http://www.sina.com.cn/'，再运行，肯定报错。在Chrome的控制台里，还可以看到错误信息。
+这是因为浏览器的同源策略导致的。默认情况下，JavaScript在发送AJAX请求时，URL的域名必须和当前页面完全一致。
+完全一致的意思是，域名要相同（www.example.com和example.com不同），协议要相同（http和https不同）
+，端口号要相同（默认是:80端口，它和:8080就不同）。有的浏览器口子松一点，允许端口不同，大多数
+浏览器都会严格遵守这个限制。
+Javascript请求外域URL方法：
+a. 通过Flash插件发送HTTP请求； b. 通过同源域名下架设一个代理服务器来转发 c. 使用JSONP（只能用get请求）
+新的跨域策略CORS（需浏览器支持HTML5）全称Cross-ORigin Resource Sharing
+Origin表示本域，也就是浏览器当前页面的域。当JavaScript向外域（如sina.com）发起请求后，浏览器收到响应后，
+首先检查Access-Control-Allow-Origin是否包含本域，如果是，则此次跨域请求成功，如果不是，则请求失败
+，JavaScript将无法获取到响应的任何数据。假设本域是my.com，外域是sina.com，只要响应头Access-Control-Allow-Origin为http://my.com，
+或者是*，本次请求就可以成功。可见，跨域能否成功，取决于对方服务器是否愿意给你设置一个正确的
+Access-Control-Allow-Origin，决定权始终在对方手中。上面这种跨域请求，称之为“简单请求”。简单
+请求包括GET、HEAD和POST（POST的Content-Type类型仅限application/x-www-form-urlencoded、
+multipart/form-data和text/plain），并且不能出现任何自定义头（例如，X-Custom: 12345），通常能
+满足90%的需求。
+
+5.6 promise
+回顾下AJAX典型的异步操作：
+request.onreadystatechange = function () {
+    if (request.readyState === 4) {
+        if (request.status === 200) {
+            return success(request.responseText);
+        } else {
+            return fail(request.status);
+        }
+    }
+}
+把回调函数success(request.responseText)和fail(request.status)写到一个AJAX操作里很正常，但是不好看，而且不利于代码复用。
+可以写成这样：
+var ajax = ajaxGet('http://...');
+ajax.ifSuccess(success)
+    .ifFail(fail);
+这种链式写法的好处在于，先统一执行AJAX逻辑，不关心如何处理结果，然后，根据结果是成功还是失败
+，在将来的某个时候调用success函数或fail函数。古人云：“君子一诺千金”，这种“承诺将来会执行”的对
+象在JavaScript中称为Promise对象。
+一个生成0-2之间的随机数，如果小于1则等一段时间返回成功，否则返回失败：
+function test(resolve, reject) {
+    var timeOut = Math.random() * 2;
+    log('set timeout to: ' + timeOut + ' seconds.');
+    setTimeout(function () {
+        if (timeOut < 1) {
+            log('call resolve()...');
+            resolve('200 OK');
+        }
+        else {
+            log('call reject()...');
+            reject('timeout in ' + timeOut + ' seconds.');
+        }
+    }, timeOut * 1000);
+}
+这个test()函数有两个参数，这两个参数都是函数，如果执行成功，我们将调用resolve('200 OK')，如果执行失败，
+我们将调用reject('timeout in ' + timeOut + ' seconds.')。可以看出，test()函数只关心自身的逻辑，
+并不关心具体的resolve和reject将如何处理结果。有了执行函数，我们就可以用一个Promise对象来执行它，
+并在将来某个时刻获得成功或失败的结果：
+var p1 = new Promise(test);
+var p2 = p1.then(function (result) {
+    console.log('成功：' + result);
+});
+var p3 = p2.catch(function (reason) {
+    console.log('失败：' + reason);
+});
+Promise对象可以串联起来，所以上述代码可以简化为：
+new Promise(test).then(function (result) {
+    console.log('成功：' + result);
+}).catch(function (reason) {
+    console.log('失败：' + reason);
+})
+下面的例子演示了如何串行执行一系列需要异步计算获得结果的任务：
+'use strict';
+var logging = document.getElementById('test-promise2-log');
+while (logging.children.length > 1) {
+    logging.removeChild(logging.children[logging.children.length - 1]);
+}
+
+function log(s) {
+    var p = document.createElement('p');
+    p.innerHTML = s;
+    logging.appendChild(p);
+}
+// 0.5秒后返回input*input的计算结果:
+function multiply(input) {
+    return new Promise(function (resolve, reject) {
+        log('calculating ' + input + ' x ' + input + '...');
+        setTimeout(resolve, 500, input * input);
+    });
+}
+
+// 0.5秒后返回input+input的计算结果:
+function add(input) {
+    return new Promise(function (resolve, reject) {
+        log('calculating ' + input + ' + ' + input + '...');
+        setTimeout(resolve, 500, input + input);
+    });
+}
+
+var p = new Promise(function (resolve, reject) {
+    log('start new Promise...');
+    resolve(123);
+});
+
+p.then(multiply)
+ .then(add)
+ .then(multiply)
+ .then(add)
+ .then(function (result) {
+    log('Got value: ' + result);
+});
+setTimeout可以看成一个模拟网络等异步执行的函数。现在，我们把上一节的AJAX异步执行函数转换为
+Promise对象，看看用Promise如何简化异步处理：
+'use strict';
+
+// ajax函数将返回Promise对象:
+function ajax(method, url, data) {
+    var request = new XMLHttpRequest();
+    return new Promise(function (resolve, reject) {
+        request.onreadystatechange = function () {
+            if (request.readyState === 4) {
+                if (request.status === 200) {
+                    resolve(request.responseText);
+                } else {
+                    reject(request.status);
+                }
+            }
+        };
+        request.open(method, url);
+        request.send(data);
+    });
+}
+var log = document.getElementById('test-promise-ajax-result');
+var p = ajax('GET', '/api/categories');
+p.then(function (text) { // 如果AJAX成功，获得响应内容
+    log.innerText = text;
+}).catch(function (status) { // 如果AJAX失败，获得响应代码
+    log.innerText = 'ERROR: ' + status;
+});
+除了串行执行若干异步任务外，Promise还可以并行执行异步任务，用Promise.all()实现如下：
+var p1 = new Promise(function (resolve, reject) {
+    setTimeout(resolve, 500, 'P1');
+});
+var p2 = new Promise(function (resolve, reject) {
+    setTimeout(resolve, 600, 'P2');
+});
+// 同时执行p1和p2，并在它们都完成后执行then:
+Promise.all([p1, p2]).then(function (results) {
+    console.log(results); // 获得一个Array: ['P1', 'P2']
+});
+有些时候，多个异步任务是为了容错。比如，同时向两个URL读取用户的个人信息，只需要获得先返回的
+结果即可。这种情况下，用Promise.race()实现：
+var p1 = new Promise(function (resolve, reject) {
+    setTimeout(resolve, 500, 'P1');
+});
+var p2 = new Promise(function (resolve, reject) {
+    setTimeout(resolve, 600, 'P2');
+});
+Promise.race([p1, p2]).then(function (result) {
+    console.log(result); // 'P1'
+});
+由于p1执行较快，Promise的then()将获得结果'P1'。p2仍在继续执行，但执行结果将被丢弃。
+
+5.7 Canvas
+canvas是HTML5新增的组件，像一块布可以用Javascript在上面绘制图表、动画
+用Canvas定义一个指定尺寸的矩形框：
+<canvas id="test-canvas" width="300" height="200"></canvas>
+由于浏览器对HTML5标准支持不一致，所以，通常在<canvas>内部添加一些说明性HTML代码，如果浏览器支持
+Canvas，它将忽略<canvas>内部的HTML，如果浏览器不支持Canvas，它将显示<canvas>内部的HTML：
+<canvas id="test-stock" width="300" height="200">
+    <p>Current Price: 25.51</p>
+</canvas>
+getContext('2d')方法让我们拿到一个CanvasRenderingContext2D对象，所有的绘图操作都需要通过这个对象完成。
+var ctx = canvas.getContext('2d');
+如果需要绘制3D怎么办？HTML5还有一个WebGL规范，允许在Canvas中绘制3D图形：
+gl = canvas.getContext("webgl");
+Canvas的坐标以左上角为原点，水平向右为X轴，垂直向下为Y轴，以像素为单位，所以每个点都是非负整数。
+'use strict';
+
+var
+    canvas = document.getElementById('test-shape-canvas'),
+    ctx = canvas.getContext('2d');
+ctx.clearRect(0, 0, 200, 200); // 擦除(0,0)位置大小为200x200的矩形，擦除的意思是把该区域变为透明
+ctx.fillStyle = '#dddddd'; // 设置颜色
+ctx.fillRect(10, 10, 130, 130); // 把(10,10)位置大小为130x130的矩形涂色
+// 利用Path绘制复杂路径:
+var path=new Path2D();
+path.arc(75, 75, 50, 0, Math.PI*2, true);
+path.moveTo(110,75);
+path.arc(75, 75, 35, 0, Math.PI, false);
+path.moveTo(65, 65);
+path.arc(60, 65, 5, 0, Math.PI*2, true);
+path.moveTo(95, 65);
+path.arc(90, 65, 5, 0, Math.PI*2, true);
+ctx.strokeStyle = '#0000ff';
+ctx.stroke(path);
+绘制文本就是在指定的位置输出文本，可以设置文本的字体、样式、阴影等，与CSS完全一致：
+'use strict';
+
+var
+    canvas = document.getElementById('test-text-canvas'),
+    ctx = canvas.getContext('2d');
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+ctx.shadowOffsetX = 2;
+ctx.shadowOffsetY = 2;
+ctx.shadowBlur = 2;
+ctx.shadowColor = '#666666';
+ctx.font = '24px Arial';
+ctx.fillStyle = '#333333';
+ctx.fillText('带阴影的文字', 20, 40);
+Canvas除了能绘制基本的形状和文本，还可以实现动画、缩放、各种滤镜和像素转换等高级操作。如果要实现非常复杂的操作，考虑以下优化方案：
+通过创建一个不可见的Canvas来绘图，然后将最终绘制结果复制到页面的可见Canvas中；
+尽量使用整数坐标而不是浮点数；
+可以创建多个重叠的Canvas绘制不同的层，而不是在一个Canvas中绘制非常复杂的图；
+背景图片如果不变可以直接用<img>标签并放到最底层。
+
+
+6. jQuery
+jQuery 是Javascript使用最广泛的一个库，它能帮我们干这些事：
+消除浏览器差异：你不需要自己写冗长的代码来针对不同的浏览器来绑定事件，编写AJAX等代码；
+简洁的操作DOM的方法：写$('#test')肯定比document.getElementById('test')来得简洁；
+轻松实现动画、修改CSS等各种操作。
+目前jQuery有1.x和2.x两个主要版本，区别在于2.x移除了对IE6，7,8的支持。从jQuery官网可以下载最新的
+版本，只是一个文件有compressed和uncompressed两个版本，使用是一样的，想深入研究使用未压缩版
+使用jQuery只需在页面的<head>引入jQuery文件即可：
+<head>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    ...
+</head>
+$是著名的jQuery符号，jQuery把所有功能封装在一个全局变量jQuery中，$是jQuery的别名
+window.jQuery; // jQuery(selector, context)
+window.$; // jQuery(selector, context)
+$ === jQuery; // true
+typeof($); // 'function'
+$本质上就是一个函数，但是函数也是对象，于是$除了可以直接调用外，也可以有很多其他属性。
+注意，你看到的$函数名可能不是jQuery(selector, context)，因为很多JavaScript压缩工具可以对函数名和参数改名，所以压缩过的jQuery源码$函数可能变成a(b, c)。
+绝大多数时候，我们都直接用$（因为写起来更简单嘛）。但是，如果$这个变量不幸地被占用了，而且还不能改，那我们就只能让jQuery把$变量交出来，然后就只能使用jQuery这个变量：
+
+6.1 选择器
+按某个DOM节点的ID查找：
+var div = $('#abc'); //#表示ID，返回的对象是jQuery对象
+如果没有ID为abc的节点，将返回[],总之jQuery不会返回undefined或者null
+jQuery对象和DOM对象之间可以相互转化
+var div = $('#abc'); // jQuery对象
+var divDom = div.get(0); // 假设存在div，获取第1个DOM元素
+var another = $(divDom); // 重新把DOM包装为jQuery对象
+按tag查找
+var ps = $('p'); //返回所有的<p>节点
+ps.length; //数一数有多少个<p>节点
+按class查找
+var a = $('.red'); 
+同时查找包含多个class的节点：
+var a = $('.red.green');//没有空格
+按属性查找
+var email = $('[name=email]');
+var passwordInput = $('[type=password]'); // 找出<??? type="password">
+var a = $('[items="A B"]'); // 找出<??? items="A B">
+当属性的值包含空格等特殊字符时，需要用双引号括起
+按属性查找还可以使用前缀查找或者后缀查找：
+var icons = $('[name^=icon]');找出所有name属性值以icon开头的DOM
+var name = $('name$=with]');找出所有name属性值以with结尾的DOM
+组合查找
+var emailInput =$('input[name=email]'); //找出input标签里name属性为email的节点
+var tr = $('tr.red'); //找出tr节点里class为red的节点
+多项选择器
+多项选择器是把多个选择用,组合起来一块选
+$('p,div'); //选出<p>和<div>
+$('p.red,p.green');
+要注意的是，选出来的元素是按照它们在HTML中出现的顺序排列的，而且不会有重复元素。例如，<p class="red green">不会被上面的$('p.red,p.green')选择两次
+6.11 层级选择器
+如果两个DOM元素具有层级关系，可以用$('ancestor descendant')来选择，层级之间用空格隔开
+<div class="testing">
+    <ul class="lang">
+        <li class="lang-javascript">JavaScript</li>
+        <li class="lang-python">Python</li>
+        <li class="lang-lua">Lua</li>
+    </ul>
+</div>
+用层级选择器选出Javascript
+$('ul.lang li.lang-javascript');
+$('div.testing li.lang-javascript'); // 中间间隔了节点也是可以的
+$('ul.lang li');// 选择所有的<li>节点
+$('form.test p input'); //多层选择
+子选择器
+子选择器$('parent>child')类似层级选择器，但是限定了层级关系必须是父子关系，就是<child>节点
+必须是<parent>节点的直属子节点
+$('ul.lang>li.lang-javascript'); // 可以选出[<li class="lang-javascript">JavaScript</li>]
+$('div.testing>li.lang-javascript'); // [], 无法选出，因为<div>和<li>不构成父子关系
+过滤器
+过滤器一般不单独使用，通常附加在选择器上，帮助更精准的定位元素
+$('ul.lang li'); // 选出JavaScript、Python和Lua 3个节点
+$('ul.lang li:first-child'); // 仅选出JavaScript
+$('ul.lang li:last-child'); // 仅选出Lua
+$('ul.lang li:nth-child(2)'); // 选出第N个元素，N从1开始
+$('ul.lang li:nth-child(even)'); // 选出序号为偶数的元素
+$('ul.lang li:nth-child(odd)'); // 选出序号为奇数的元素
+与表单相关的过滤器
+    :input：可以选择<input>，<textarea>，<select>和<button>；
+
+    :file：可以选择<input type="file">，和input[type=file]一样；
+
+    :checkbox：可以选择复选框，和input[type=checkbox]一样；
+
+    :radio：可以选择单选框，和input[type=radio]一样；
+
+    :focus：可以选择当前输入焦点的元素，例如把光标放到一个<input>上，用$('input:focus')就可以选出；
+
+    :checked：选择当前勾上的单选框和复选框，用这个选择器可以立刻获得用户选择的项目，如$('input[type=radio]:checked')；
+
+    :enabled：可以选择可以正常输入的<input>、<select>
+    等，也就是没有灰掉的输入；
+
+    :disabled：和:enabled正好相反，选择那些不能输入的。
+此外，jQuery还有很多有用的选择器，例如，选出可见的或隐藏的元素：
+$('div:visible'); // 所有可见的div
+$('div:hidden'); // 所有隐藏的div
+
+6.12 查找和过滤
+通常情况下选择器可以直接定位到我们想要的元素，但是，当我们拿到一个jQuery对象后，还可以以这个
+对象为基准，进行查找和过滤。最常见的查找是在某个节点的所有子节点中查找，使用find()方法，它本
+身又接收一个任意的选择器。
+<ul class="lang">
+    <li class="js dy">JavaScript</li>
+    <li class="dy">Python</li>
+    <li id="swift">Swift</li>
+    <li class="dy">Scheme</li>
+    <li name="haskell">Haskell</li>
+</ul>
+用find()查找
+var ul = $('ul.lang');
+var dy = ul.find('.dy')
+var swf =ul.find('#swift');
+从当前节点向上查找，使用parent()方法
+var swf = $('#swift');
+var parent = swf.parent(); //获得上层父节点
+var a = swf.parent('.red'); //上层节点如果不符合条件则返回空jQuery对象
+同级节点可以通过next()和prev()方法 
+var swift = $('#swift');
+swift.next(); // Scheme
+swift.next('[name=haskell]'); // 空的jQuery对象，因为Swift的下一个元素Scheme不符合条件[name=haskell]
+swift.prev(); // Python
+swift.prev('.dy'); // Python，因为Python同时符合过滤器条件.dy
+过滤 
+filter()方法留下符合过滤条件的节点
+var langs = $('ul.lang li');
+var a =langs.filter('.dy');
+或者传入一个函数，注意函数内部的this绑定为DOM对象，不是jQuery对象
+var langs = $('ul.lang li'); // 拿到JavaScript, Python, Swift, Scheme和Haskell
+langs.filter(function () {
+    return this.innerHTML.indexOf('S') === 0; // 返回S开头的节点
+}); // 拿到Swift, Scheme
+map()方法把一个jQuery对象包含的若干DOM节点转化为其他对象
+var langs = $('ul.lang li'); // 拿到JavaScript, Python, Swift, Scheme和Haskell
+var arr = langs.map(function () {
+    return this.innerHTML;
+}).get(); // 用get()拿到包含string的Array：['JavaScript', 'Python', 'Swift', 'Scheme', 'Haskell']
+此外，一个jQuery对象如果包含了不止一个DOM节点，first()、last()和slice()方法可以返回一个新的
+jQuery对象，把不需要的DOM节点去掉：
+var langs = $('ul.lang li'); // 拿到JavaScript, Python, Swift, Scheme和Haskell
+var js = langs.first(); // JavaScript，相当于$('ul.lang li:first-child')
+var haskell = langs.last(); // Haskell, 相当于$('ul.lang li:last-child')
+var sub = langs.slice(2, 4); // Swift, Scheme, 参数和数组的slice()方法一致
+
+6.2操作DOM
+修改texthe HTML 
+jQuery对象的text()和html()方法分别获取节点的文本和原始HTML文本
+<ul id="test-ul">
+    <li class="js">JavaScript</li>
+    <li name="book">Java &amp; JavaScript</li>
+</ul>
+$('#test-ul li[name=book]').text(); // 'Java & JavaScript'
+$('#test-ul li[name=book]').html(); // 'Java &amp; JavaScript' 
+如何设置文本或HTML？jQuery的API设计非常巧妙：无参数调用text()是获取文本，传入参数就变成设置文
+本，HTML也是类似操作
+一个jQuery对象可以包含0个或多个DOM对象，它的方法实际上会作用在对应的每个DOM节点
+$('#test-ul li').text('JS'); //两个节点都变成了JS
+所以jQuery对象的另一个好处是我们可以执行一个操作，作用在对应的一组DOM节点上。即使选择器没有返
+回任何DOM节点，调用jQuery对象的方法仍然不会报错：
+$('#not-exist').text('Hello'); // 代码不报错，没有节点被设置为'Hello'
+这意味着jQuery可以免去许多if语句
+修改CSS
+jQuery对象有批量操作的特点，修改CSS非常方便
+<ul id="test-css">
+    <li class="lang dy"><span>JavaScript</span></li>
+    <li class="lang"><span>Java</span></li>
+    <li class="lang dy"><span>Python</span></li>
+    <li class="lang"><span>Swift</span></li>
+    <li class="lang dy"><span>Scheme</span></li>
+</ul>
+要高亮显示动态语言，调用jQuery对象的css('name', 'value')方法，我们用一行语句实现：
+$('#test-css li.dy>span').css('background-color','#ffd351').css('color','red');
+注意，jQuery对象的所有方法都返回一个jQuery对象（可能是新的也可能是自身），这样我们可以进行链式调用，非常方便
+CSS()还可以这样用：
+var div =$('#test-div');
+div.css('color'); //获取css属性
+div.css('color','#366699'); //设置css属性
+div.css('color','');//清除css属性
+为了和JavaScript保持一致，CSS属性可以用'background-color'和'backgroundColor'两种格式。
+css()方法将作用于DOM节点的style属性，具有最高优先级。如果要修改class属性，可以用jQuery提供的下列方法：
+var div = $('#test-div');
+div.hasClass('highlight'); // false， class是否包含highlight
+div.addClass('highlight'); // 添加highlight这个class
+div.removeClass('highlight'); // 删除highlight这个class
+显示和隐藏DOM
+要隐藏一个DOM，我们可以设置CSS的display属性为none，利用css()方法就可以实现。不过，要显示这个
+DOM就需要恢复原有的display属性，这就得先记下来原有的display属性到底是block还是inline还是别的
+值。考虑到显示和隐藏DOM元素使用非常普遍，jQuery直接提供show()和hide()方法，我们不用关心它是如
+何修改display属性的，总之它能正常工作：
+var a = $('a[target=_blank]');
+a.hide(); // 隐藏
+a.show(); // 显示
+注意，隐藏DOM节点并未改变DOM树的结构，它只影响DOM节点的显示。这和删除DOM节点是不同的。
+获取DOM信息
+利用jQuery对象的若干方法，我们直接可以获取DOM的高宽等信息，而无需针对不同浏览器编写特定代码：
+// 浏览器可视窗口大小:
+$(window).width(); // 800
+$(window).height(); // 600
+
+// HTML文档大小:
+$(document).width(); // 800
+$(document).height(); // 3500
+
+// 某个div的大小:
+var div = $('#test-div');
+div.width(); // 600
+div.height(); // 300
+div.width(400); // 设置CSS属性 width: 400px，是否生效要看CSS是否有效
+div.height('200px'); // 设置CSS属性 height: 200px，是否生效要看CSS是否有效
+attr()和removeAttr()方法用于操作DOM节点的属性
+<div id="test-div" name="Test" start="1">...</div>
+var div = $('#test-div');
+div.attr('data'); // undefined, 属性不存在
+div.attr('name'); // 'Test'
+div.attr('name', 'Hello'); // div的name属性变为'Hello'
+div.removeAttr('name'); // 删除name属性
+div.attr('name'); // undefined
+prop()方法和attr()类似，但是HTML5规定有一种属性在DOM节点中可以没有值，只有出现与不出现两种，例如：
+<input id="test-radio" type="radio" name="test" checked value="1">
+等价于：
+<input id="test-radio" type="radio" name="test" checked="checked" value="1">
+attr()和prop()对于属性checked处理有所不同：
+var radio = $('#test-radio');
+radio.attr('checked'); // 'checked'
+radio.prop('checked'); // true
+prop()返回值更合理一些。不过，用is()方法判断更好：
+var radio = $('#test-radio');
+radio.is(':checked'); // true
+类似的属性还有selected，处理时最好用is(':selected')。
+操作表单
+对于表单元素，jQuery对象统一提供val()方法获取和设置对应的value属性：
+/*
+    <input id="test-input" name="email" value="">
+    <select id="test-select" name="city">
+        <option value="BJ" selected>Beijing</option>
+        <option value="SH">Shanghai</option>
+        <option value="SZ">Shenzhen</option>
+    </select>
+    <textarea id="test-textarea">Hello</textarea>
+*/
+var
+    input = $('#test-input'),
+    select = $('#test-select'),
+    textarea = $('#test-textarea');
+
+input.val(); // 'test'
+input.val('abc@example.com'); // 文本框的内容已变为abc@example.com
+select.val(); // 'BJ'
+select.val('SH'); // 选择框已变为Shanghai
+textarea.val(); // 'Hello'
+textarea.val('Hi'); // 文本区域已更新为'Hi'
+
+修改DOM结构
+直接使用浏览器提供的API对DOM结构进行修改，不但代码复杂，而且要针对浏览器写不同的代码。有了
+jQuery，我们就专注于操作jQuery对象本身，底层的DOM操作由jQuery完成就可以了，这样一来，修改DOM
+也大大简化了。
+添加DOM
+要添加新的DOM节点，除了通过jQuery的html()这种暴力方法外，还可以用append()方法，例如：
+<div id="test-div">
+    <ul>
+        <li><span>JavaScript</span></li>
+        <li><span>Python</span></li>
+        <li><span>Swift</span></li>
+    </ul>
+</div>
+var ul = $('#test-div>ul');
+ul.append('<li><span>Haskell</span></li>');
+除了接受字符串，append()还可以传入原始的DOM对象，jQuery对象和函数对象：
+// 创建DOM对象:
+var ps = document.createElement('li');
+ps.innerHTML = '<span>Pascal</span>';
+// 添加DOM对象:
+ul.append(ps);
+
+// 添加jQuery对象:
+ul.append($('#scheme'));
+
+// 添加函数对象:
+ul.append(function (index, html) {
+    return '<li><span>Language - ' + index + '</span></li>';
+});
+传入函数时，要求返回一个字符串、DOM对象或者jQuery对象。因为jQuery的append()可能作用于一组DOM节点，只有传入函数才能针对每个DOM生成不同的子节点。
+append()把DOM添加到最后，prepend()则把DOM添加到最前。
+另外注意，如果要添加的DOM节点已经存在于HTML文档中，它会首先从文档移除，然后再添加，也就是说，用append()，你可以移动一个DOM节点。
+如果要把新节点插入到指定位置，例如，JavaScript和Python之间，那么，可以先定位到JavaScript，然后用after()方法：
+var js = $('#test-div>ul>li:first-child');
+js.after('<li><span>Lua</span></li>');
+也就是说，同级节点可以用after()或者before()方法。
+删除节点
+要删除DOM节点，拿到jQuery对象后直接调用remove()方法就可以了。如果jQuery对象包含若干DOM节点，实际上可以一次删除多个DOM节点：
+var li = $('#test-div>ul>li');
+li.remove();
+
+6.3 事件
+因为JavaScript在浏览器中以单线程模式运行，页面加载后，一旦页面上所有的JavaScript代码被执行完后，就只能依赖触发事件来执行JavaScript代码。
+浏览器在接收到用户的鼠标或键盘输入后，会自动在对应的DOM节点上触发相应的事件。如果该节点已经绑定了对应的JavaScript处理函数，该函数就会自动调用。
+由于不同的浏览器绑定事件的代码都不太一样，所以用jQuery来写代码，就屏蔽了不同浏览器的差异，我们总是编写相同的代码。
+点击连接，弹出提示框：
+<a id="test-link" href="#0">点我试试</a>
+var a = $('#test-link');
+a.on('click',function(){
+	alert('Hello!');
+});
+还可以直接调用click()方法
+a.click(function(){
+	alert("Hello!");
+});
+jQuery能绑定的事件主要包括：
+鼠标事件：
+click: 鼠标单击时触发； 
+dblclick：鼠标双击时触发；
+ mouseenter：鼠标进入时触发；
+ mouseleave：鼠标移出时触发； 
+ mousemove：鼠标在DOM内部移动时触发； 
+ hover：鼠标进入和退出时触发两个函数，相当于mouseenter加上mouseleave
+键盘事件
+键盘事件仅作用在当前焦点的DOM上，通常是<input>和<textarea>。
+keydown：键盘按下时触发；
+keyup：键盘松开时触发；
+keypress：按一次键后触发。
+其他事件
+focus：当DOM获得焦点时触发； 
+blur：当DOM失去焦点时触发； 
+change：当<input>、<select>或<textarea>的内容改变时触发； 
+submit：当<form>提交时触发； 
+ready：当页面被载入并且DOM树完成初始化后触发。
+其中，ready仅作用于document对象。由于ready事件在DOM完成初始化后触发，且只触发一次，所以非常适
+合用来写其他的初始化代码。假设我们想给一个<form>表单绑定submit事件，下面的代码没有预期的效果：
+<html>
+<head>
+    <script>
+        // 代码有误:
+        $('#testForm).on('submit', function () {
+            alert('submit!');
+        });
+    </script>
+</head>
+<body>
+    <form id="testForm">
+        ...
+    </form>
+</body>
+因为JavaScript在此执行的时候，<form>尚未载入浏览器，所以$('#testForm)返回[]，并没有绑定事件到任何DOM上。
+所以我们自己的初始化代码必须放到document对象的ready事件中，保证DOM已完成初始化：
+<html>
+<head>
+    <script>
+        $(document).on('ready', function () {
+            $('#testForm).on('submit', function () {
+                alert('submit!');
+            });
+        });
+    </script>
+</head>
+<body>
+    <form id="testForm">
+        ...
+    </form>
+</body>
+这样写就没有问题了。因为相关代码会在DOM树初始化后再执行。
+由于ready事件使用非常普遍，所以可以这样简化：
+$(document).ready(function () {
+    // on('submit', function)也可以简化:
+    $('#testForm).submit(function () {
+        alert('submit!');
+    });
+});
+甚至还可以简化：
+$(function () {
+    // init...
+});
+上面的这种写法最为常见。如果你遇到$(function () {...})的形式，牢记这是document对象的ready事件处理函数。
+
+完全可以反复绑定事件处理函数，它们会依次执行：
+$(function () {
+    console.log('init A...');
+});
+$(function () {
+    console.log('init B...');
+});
+$(function () {
+    console.log('init C...');
+});
+事件参数
+有些事件，如mousemove和keypress，我们需要获取鼠标和按键的值，所有事件会传入Event对象作为参数，可以从Event对象获取信息
+$(function(){
+	$('#testMouseMoveDiv').mousemove(function(e){
+		$('#testMouseMoveSpan').text('pageX = ' + e.pageX + ', pageY = ' + e.pageY);
+	});
+});
+取消绑定
+一个已经被绑定的事件可以解除绑定，通过off('click',function)实现
+function hello() {
+    alert('hello!');
+}
+
+a.click(hello); // 绑定事件
+
+// 10秒钟后解除绑定:
+setTimeout(function () {
+    a.off('click', hello);
+}, 10000);
+下面这种写法是没有效果的：
+// 绑定事件:
+a.click(function () {
+    alert('hello!');
+});
+
+// 并没有解除绑定:
+a.off('click', function () {
+    alert('hello!');
+});
+这是因为两个匿名函数虽然长得一模一样，但是它们是两个不同的函数对象，off('click', function () {...})无法移除已绑定的第一个匿名函数。
+为了实现移除效果，可以使用off('click')一次性移除已绑定的click事件的所有处理函数。
+同理，无参数调用off()一次性移除已绑定的所有类型的事件处理函数。
+
+事件触发条件
+一个需要注意的问题是，事件的触发总是由用户操作引发的。例如，我们监控文本框的内容改动：
+var input = $('#test-input');
+input.change(function () {
+    console.log('changed...');
+});
+当用户在文本框中输入时，就会触发change事件。但是，如果用JavaScript代码去改动文本框的值，将不会触发change事件：
+var input = $('#test-input');
+input.val('change it!'); // 无法触发change事件
+有些时候，我们希望用代码触发change事件，可以直接调用无参数的change()方法来触发该事件：
+var input = $('#test-input');
+input.val('change it!');
+input.change(); // 触发change事件
+input.change()相当于input.trigger('change')，它是trigger()方法的简写。
+为什么我们希望手动触发一个事件呢？如果不这么做，很多时候，我们就得写两份一模一样的代码。
+
+浏览器安全限制
+在浏览器中，有些Javascript代码只有在用户触发下才能执行，例如window.open()函数 
+$(function(){
+	window.open('/');
+}); //无法弹出，将被浏览器屏蔽
+这些“敏感代码”只能由用户操作来触发：
+var button1 = $('#testPopupButton1');
+var button2 = $('#testPopupButton2');
+
+function popupTestWindow() {
+    window.open('/');
+}
+
+button1.click(function () {
+    popupTestWindow();
+});
+
+button2.click(function () {
+    // 不立刻执行popupTestWindow()，100毫秒后执行:
+    setTimeout(popupTestWindow, 100);
+});
+当用户点击button1时，click事件被触发，由于popupTestWindow()在click事件处理函数内执行，这是浏览器
+允许的，而button2的click事件并未立刻执行popupTestWindow()，延迟执行的popupTestWindow()将被浏览器拦截。
+
+6.4 动画
+用JavaScript实现动画，原理非常简单：我们只需要以固定的时间间隔（例如，0.1秒），每次把DOM元素的CSS样式修改一点（例如，高宽各增加10%），看起来就像动画了。
+
+但是要用JavaScript手动实现动画效果，需要编写非常复杂的代码。如果想要把动画效果用函数封装起来便于复用，那考虑的事情就更多了。
+
+使用jQuery实现动画，代码已经简单得不能再简化了：只需要一行代码！
+
+让我们先来看看jQuery内置的几种动画样式：
+show/hide
+直接以无参数形式调用show()和hide(), 会显示和隐藏DOM元素，但是只要传递一个时间参数就变成了动画：
+var div = $('#test-show-hide');
+div.hide(3000);//3秒内逐渐消失，单位为毫秒
+也可以使用slow，fast这些字符
+var div = $('#test-show-hide');
+div.show('slow'); // 在0.6秒钟内逐渐显示
+toggle()方法则根据当前状态决定是show()还是hide()。
+slideUp / slideDown
+你可能已经看出来了，show()和hide()是从左上角逐渐展开或收缩的，而slideUp()和slideDown()则是在垂直方向逐渐展开或收缩的。
+slideUp()把一个可见的DOM元素收起来，效果跟拉上窗帘似的，slideDown()相反，而slideToggle()则根据元素是否可见来决定下一步动作：
+var div = $('#test-slide');
+div.slideUp(3000); // 在3秒钟内逐渐向上消失
+fadeIn / fadeOut
+fadeIn()和fadeOut()的动画效果是淡入淡出，也就是通过不断设置DOM元素的opacity属性来实现，而fadeToggle()则根据元素是否可见来决定下一步动作：
+var div = $('#test-fade');
+div.fadeOut('slow'); // 在0.6秒内淡出
+自定义动画
+如果上述动画效果还不能满足你的要求，那就祭出最后大招：animate()，它可以实现任意动画效果，我们需要传入的参数就是DOM元素最终的CSS状态和时间，jQuery在时间段内不断调整CSS直到达到我们设定的值：
+var div = $('#test-animate');
+div.animate({
+    opacity: 0.25,
+    width: '256px',
+    height: '256px'
+}, 3000); // 在3秒钟内CSS过渡到设定值
+animate()还可以再传入一个函数，当动画结束时，该函数将被调用：
+var div = $('#test-animate');
+div.animate({
+    opacity: 0.25,
+    width: '256px',
+    height: '256px'
+}, 3000, function () {
+    console.log('动画已结束');
+    // 恢复至初始状态:
+    $(this).css('opacity', '1.0').css('width', '128px').css('height', '128px');
+});
+实际上这个回调函数参数对于基本动画也是适用的。
+串行动画
+jQuery的动画效果还可以串行执行，通过delay()方法还可以实现暂停，这样，我们可以实现更复杂的动画效果，而代码却相当简单：
+var div = $('#test-animates');
+// 动画效果：slideDown - 暂停 - 放大 - 暂停 - 缩小
+div.slideDown(2000)
+   .delay(1000)
+   .animate({
+       width: '256px',
+       height: '256px'
+   }, 2000)
+   .delay(1000)
+   .animate({
+       width: '128px',
+       height: '128px'
+   }, 2000);
+}
+因为动画需要执行一段时间，所以jQuery必须不断返回新的Promise对象才能后续执行操作。简单地把动画封装在函数中是不够的。
+为什么有的动画没有效果？
+你可能会遇到，有的动画如slideUp()根本没有效果。这是因为jQuery动画的原理是逐渐改变CSS的值，如height从100px逐渐变为0。但是很多不是block性质的DOM元素，对它们设置height根本就不起作用，所以动画也就没有效果。
+此外，jQuery也没有实现对background-color的动画效果，用animate()设置background-color也没有效果。这种情况下可以使用CSS3的transition实现动画效果。
+
+6.4 AJAX 
+
+用JavaScript写AJAX前面已经介绍过了，主要问题就是不同浏览器需要写不同代码，并且状态和错误处理写起来很麻烦。
+用jQuery的相关对象来处理AJAX，不但不需要考虑浏览器问题，代码也能大大简化。
+jQuery在全局对象jQuery（也就是$）绑定了ajax()函数，可以处理AJAX请求。ajax(url, settings)函数需要接收一个URL和一个可选的settings对象，常用的选项如下：
+
+    async：是否异步执行AJAX请求，默认为true，千万不要指定为false；
+
+    method：发送的Method，缺省为'GET'，可指定为'POST'、'PUT'等；
+
+    contentType：发送POST请求的格式，默认值为'application/x-www-form-urlencoded; charset=UTF-8'，也可以指定为text/plain、application/json；
+
+    data：发送的数据，可以是字符串、数组或object。如果是GET请求，data将被转换成query附加到URL上，如果是POST请求，根据contentType把data序列化成合适的格式；
+
+    headers：发送的额外的HTTP头，必须是一个object；
+
+    dataType：接收的数据格式，可以指定为'html'、'xml'、'json'、'text'等，缺省情况下根据响应的Content-Type猜测。
+
+下面的例子发送一个GET请求，并返回一个JSON格式的数据：
+var jqxhr = $.ajax('/api/categories', {
+    dataType: 'json'
+});
+// 请求已经发送了
+不过，如何用回调函数处理返回的数据和出错时的响应呢？
+还记得Promise对象吗？jQuery的jqXHR对象类似一个Promise对象，我们可以用链式写法来处理各种回调：
+function ajaxLog(s) {
+    var txt = $('#test-response-text');
+    txt.val(txt.val() + '\n' + s);
+}
+
+$('#test-response-text').val('');
+var jqxhr = $.ajax('/api/categories', {
+    dataType: 'json'
+}).done(function (data) {
+    ajaxLog('成功, 收到的数据: ' + JSON.stringify(data));
+}).fail(function (xhr, status) {
+    ajaxLog('失败: ' + xhr.status + ', 原因: ' + status);
+}).always(function () {
+    ajaxLog('请求完成: 无论成功或失败都会调用');
+});
+
+get 
+对常用的AJAX操作，jQuery提供了一些辅助方法。由于GET请求最常见，所以jQuery提供了get()方法，可以这么写：
+var jqxhr = $.get('/path/to/resource', {
+    name: 'Bob Lee',
+    check: 1
+});
+第二个参数如果是object，jQuery自动把它变成query string然后加到URL后面，实际的URL是：
+/path/to/resource?name=Bob%20Lee&check=1
+post
+post()和get()类似，但是传入的第二个参数默认被序列化为application/x-www-form-urlencoded：
+var jqxhr = $.post('/path/to/resource', {
+    name: 'Bob Lee',
+    check: 1
+});
+实际构造的数据name=Bob%20Lee&check=1作为POST的body被发送。
+getJSON
+var jqxhr = $.getJSON('/path/to/resource', {
+    name: 'Bob Lee',
+    check: 1
+}).done(function (data) {
+    // data已经被解析为JSON对象了
+});
+安全限制
+jQuery的AJAX完全封装的是JavaScript的AJAX操作，所以它的安全限制和前面讲的用JavaScript写AJAX完全一样。
+如果需要使用JSONP，可以在ajax()中设置jsonp: 'callback'，让jQuery实现JSONP跨域加载数据。
+关于跨域的设置请参考浏览器 - AJAX一节中CORS的设置。
+
+6.5 扩展
+我们可以扩展jQuery来实现自定义方法。将来如果要修改高亮的逻辑，只需修改一处扩展代码。这种方式也称为编写jQuery插件。
+编写jQuery插件
+给jQuery对象绑定一个新方法是通过扩展$.fn对象实现的，来编写一个扩展highlight()
+$.fn.highlight1 = function () {
+    // this已绑定为当前jQuery对象:
+    this.css('backgroundColor', '#fffceb').css('color', '#d85030');
+    return this;
+};
+注意到函数内部的this在调用时被绑定为jQuery对象，所以函数内部代码可以正常调用所有jQuery对象的方法。
+对于如下的HTML结构：
+<div id="test-highlight1">
+    <p>什么是<span>jQuery</span></p>
+    <p><span>jQuery</span>是目前最流行的<span>JavaScript</span>库。</p>
+</div>
+来高亮一下：
+$('#test-highlight1 span').highlight1()；
+细心的童鞋可能发现了，为什么最后要return this;？因为jQuery对象支持链式操作，我们自己写的扩展方法也要能继续链式下去：
+但是这个版本并不完美。有的用户希望高亮的颜色能自己来指定，怎么办？
+我们可以给方法加个参数，让用户自己把参数用对象传进去。于是我们有了第二个版本的highlight2()：
+$.fn.highlight2 = function (options) {
+    // 要考虑到各种情况:
+    // options为undefined
+    // options只有部分key
+    var bgcolor = options && options.backgroundColor || '#fffceb';
+    var color = options && options.color || '#d85030';
+    this.css('backgroundColor', bgcolor).css('color', color);
+    return this;
+}；
+对于如下结构
+<div id="test-highlight2">
+    <p>什么是<span>jQuery</span> <span>Plugin</span></p>
+    <p>编写<span>jQuery</span> <span>Plugin</span>可以用来扩展<span>jQuery</span>的功能。</p>
+</div>
+高亮下
+$('#test-highlight2 span').highlight2({
+    backgroundColor: '#00a8e6',
+    color: '#ffffff'
+});
+对于默认值的处理，我们用了一个简单的&&和||短路操作符，总能得到一个有效的值。
+另一种方法是jQuery提供的辅助方法$.extend(target,obj1,obj2,...),把多个object对象的属性合并到第一个target对象中，遇到同名属性，总是使用靠后对象的值
+var opts = $.extend({},{
+	backgroundColor: '#00a8e6',
+    color: '#ffffff'
+},options);
+紧接着用户对highlight2()提出了意见：每次调用都需要传入自定义的设置，能不能让我自己设定一个缺省值，以后的调用统一使用无参数的highlight2()？
+
+也就是说，我们设定的默认值应该能允许用户修改。
+
+那默认值放哪比较合适？放全局变量肯定不合适，最佳地点是$.fn.highlight2这个函数对象本身。
+
+于是最终版的highlight()终于诞生了：
+$.fn.highlight = function (options) {
+    // 合并默认值和用户设定值:
+    var opts = $.extend({}, $.fn.highlight.defaults, options);
+    this.css('backgroundColor', opts.backgroundColor).css('color', opts.color);
+    return this;
+}
+
+// 设定默认值:
+$.fn.highlight.defaults = {
+    color: '#d85030',
+    backgroundColor: '#fff8de'
+}
+这次用户终于满意了。用户使用时，只需一次性设定默认值：
+$.fn.highlight.defaults.color = '#fff';
+$.fn.highlight.defaults.backgroundColor = '#000';
+然后就可以非常简单地调用highlight()了。
+
+对如下的HTML结构：
+<!-- HTML结构 -->
+<div id="test-highlight">
+    <p>如何编写<span>jQuery</span> <span>Plugin</span></p>
+    <p>编写<span>jQuery</span> <span>Plugin</span>，要设置<span>默认值</span>，并允许用户修改<span>默认值</span>，或者运行时传入<span>其他值</span>。</p>
+</div>
+$.fn.highlight.defaults.color = '#659f13';
+$.fn.highlight.defaults.backgroundColor = '#f2fae3';
+
+$('#test-highlight p:first-child span').highlight();
+
+$('#test-highlight p:last-child span').highlight({
+    color: '#dd1144'
+});
+最终，我们得出编写一个jQuery插件的原则：
+    给$.fn绑定函数，实现插件的代码逻辑；
+    插件函数最后要return this;以支持链式调用；
+    插件函数要有默认值，绑定在$.fn.<pluginName>.defaults上；
+    用户在调用时可传入设定值以便覆盖默认值。
+
+针对特定元素的扩展
+我们知道jQuery对象的有些方法只能作用在特定DOM元素上，比如submit()方法只能针对form。如果我们编写的扩展只能针对某些类型的DOM元素，应该怎么写？
+还记得jQuery的选择器支持filter()方法来过滤吗？我们可以借助这个方法来实现针对特定元素的扩展。
+举个例子，现在我们要给所有指向外链的超链接加上跳转提示，怎么做？
+编写一个名为external的扩展：
+$.fn.external = function () {
+    // return返回的each()返回结果，支持链式调用:
+    return this.filter('a').each(function () {
+        // 注意: each()内部的回调函数的this绑定为DOM本身!
+        var a = $(this);
+        var url = a.attr('href');
+        if (url && (url.indexOf('http://')===0 || url.indexOf('https://')===0)) {
+            a.attr('href', '#0')
+             .removeAttr('target')
+             .append(' <i class="uk-icon-external-link"></i>')
+             .click(function () {
+                if(confirm('你确定要前往' + url + '？')) {
+                    window.open(url);
+                }
+            });
+        }
+    });
+}
+对于结构：
+<div id="test-external">
+    <p>如何学习<a href="http://jquery.com">jQuery</a>？</p>
+    <p>首先，你要学习<a href="/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000">JavaScript</a>，并了解基本的<a href="https://developer.mozilla.org/en-US/docs/Web/HTML">HTML</a>。</p>
+</div>
+$('test-external a').external();
+
+
+7. 错误处理
+在执行JavaScript代码的时候，有些情况下会发生错误。
+错误分两种，一种是程序写的逻辑不对，导致代码执行异常。例如：
+var s = null;
+var len = s.length; // TypeError：null变量没有length属性
+对于这种错误，要修复程序。
+一种是执行过程中，程序可能遇到无法预测的异常情况而报错，例如，网络连接中断，读取不存在的文件，没有操作权限等。
+对于这种错误，我们需要处理它，并可能需要给用户反馈。
+错误处理是程序设计时必须要考虑的问题。对于C这样贴近系统底层的语言，错误是通过错误码返回的：
+int fd = open("/path/to/file", O_RDONLY);
+if (fd == -1) {
+    printf("Error when open file!");
+} else {
+    // TODO
+}
+通过错误码返回错误，就需要约定什么是正确的返回值，什么是错误的返回值。上面的open()函数约定返回-1表示错误。
+这种用错误码表示错误在编写程序时十分不便。
+因此，高级语言通常都提供了更抽象的错误处理逻辑try ... catch ... finally，JavaScript也不例外。
+try...catch...finally
+用其处理错误时，编写代码如下：
+var r1, r2, s = null;
+try {
+    r1 = s.length; // 此处应产生错误
+    r2 = 100; // 该语句不会执行
+} catch (e) {
+    console.log('出错了：' + e);
+} finally {
+    console.log('finally');
+}
+console.log('r1 = ' + r1); // r1应为undefined
+console.log('r2 = ' + r2); // r2应为undefined
+运行结果：
+出错了：TypeError: s is null
+finally
+r1 = undefined
+r2 = undefined
+我们来分析一下使用try ... catch ... finally的执行流程。
+
+当代码块被try { ... }包裹的时候，就表示这部分代码执行过程中可能会发生错误，一旦发生错误，就不再继续执行后续代码，
+转而跳到catch块。catch (e) { ... }包裹的代码就是错误处理代码，变量e表示捕获到的错误。最后，无论有没有错误，finally一定会被执行。
+所以，有错误发生时，执行流程像这样：
+
+    先执行try { ... }的代码；
+    执行到出错的语句时，后续语句不再继续执行，转而执行catch (e) { ... }代码；
+    最后执行finally { ... }代码。
+
+而没有错误发生时，执行流程像这样：
+
+    先执行try { ... }的代码；
+    因为没有出错，catch (e) { ... }代码不会被执行；
+    最后执行finally { ... }代码。
+
+最后请注意，catch和finally可以不必都出现。也就是说，try语句一共有三种形式：
+
+完整的try ... catch ... finally：
+try {
+    ...
+} catch (e) {
+    ...
+} finally {
+    ...
+}
+只有try ... catch，没有finally：
+try {
+    ...
+} catch (e) {
+    ...
+}
+只有try ... finally，没有catch：
+try {
+    ...
+} finally {
+    ...
+}
